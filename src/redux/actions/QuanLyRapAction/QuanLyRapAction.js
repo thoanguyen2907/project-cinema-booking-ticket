@@ -5,10 +5,10 @@ export const  layDanhSachHeThongRapAction= () => {
     return async (dispatch) => {
         try {
             const result = await quanLyRapService.layDanhSachRapChieuPhim();
-            console.log("result",result)
+            
             if(result.status === 200) {
                 dispatch({
-                    types: "LAY_DANH_SACH_RAP_CHIEU_PHIM", 
+                    type: "LAY_DANH_SACH_RAP_CHIEU_PHIM", 
                     heThongRapChieu: result.data.content
                 })
             }

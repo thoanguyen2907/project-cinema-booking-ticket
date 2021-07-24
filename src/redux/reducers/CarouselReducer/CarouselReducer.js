@@ -10,7 +10,7 @@ const stateDefault = {
 ]}
 
 export const CarouselReducer = (state = stateDefault, action) => {
-    switch (action.types) {
+    switch (action.type) {
 
     case SET_CAROUSEL:
         return { ...state}
