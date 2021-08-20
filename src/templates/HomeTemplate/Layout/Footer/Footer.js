@@ -1,6 +1,13 @@
-import React from 'react'
-
+import React from 'react';
+import { useSelector } from 'react-redux';
+import _ from 'lodash'; 
 export default function Footer(props) {
+    const {heThongRapChieu} = useSelector(state => state.QuanLyRapReducer);
+    console.log("heThongRapChieu", heThongRapChieu);
+   
+    const arrHeThongRap = _.map(heThongRapChieu,(heThongRap) => _.pick(heThongRap,['maHeThongRap','tenHeThongRap','logo']));
+
+
     return (
         <footer className="py-6 bg-coolGray-100 text-coolGray-900 bg-gray-100">
             <div className="container px-6 mx-auto space-y-6 divide-y divide-gray-400 md:space-y-12 divide-opacity-50">
@@ -17,22 +24,13 @@ export default function Footer(props) {
                     </div>
                     <div className="col-span-6 text-center md:text-left md:col-span-3">
                         <p className="pb-1 text-lg font-medium">Category</p>
-                        <ul style={{color:'#fff'}}>
-                            <li>
-                                <a href="#" className="hover:text-violet-600 ">Link</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-violet-600">Link</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-violet-600">Link</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-violet-600">Link</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-violet-600">Link</a>
-                            </li>{/**/}
+                        <ul style={{color:'#fff'}} className="grid grid-cols-2">
+                            {arrHeThongRap.map((htr, index) => {
+                                return <li key = {index}> 
+                                <img src = {htr.logo} width="50" alt = "htr"/> 
+                                Link
+                                </li>
+                            })}
                         </ul>
                     </div>
                     <div className="col-span-6 text-center md:text-left md:col-span-3">

@@ -18,3 +18,23 @@ export const  layDanhSachHeThongRapAction= () => {
         }
     }
 }
+
+export const  layDanhChiTietPhimAction= (id) => {
+
+    return async (dispatch) => {
+        try {
+            const result = await quanLyRapService.layThongTinLichChieuPhim(id);
+            console.log("result", result)
+            // if(result.status === 200) {
+            //     dispatch({
+            //         type: "LAY_DANH_SACH_RAP_CHIEU_PHIM", 
+            //         heThongRapChieu: result.data.content
+            //     })
+            // }
+            
+        } catch(errors) {
+            console.log("errors", errors)
+        }
+    }
+}
+

@@ -38,7 +38,7 @@ function SamplePrevArrow(props) {
 const MultipleRowSlick = (props) => {
   const dispatch = useDispatch();
   const {dangChieu,sapChieu} = useSelector(state => state.QuanLyPhimReducer);
-  console.log("props.arrFilm", props.arrFilm)
+ 
   const renderFilms = () => {
 
     return props.arrFilm.slice(0, 12).map((item, index) => {

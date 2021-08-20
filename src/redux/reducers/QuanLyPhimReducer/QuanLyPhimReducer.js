@@ -35,7 +35,8 @@ const stateDefault = {
     ],
     dangChieu: true,
     sapChieu:true,
-    arrFilmDefault: []
+    arrFilmDefault: [],
+    filmDetail: {}
 
 }
 
@@ -44,7 +45,7 @@ export const QuanLyPhimReducer = (state=stateDefault,action ) => {
 
         case SET_DANH_SACH_PHIM : {
             state.arrFilm = action.arrFilm;
-            console.log("arrFilm", state.arrFilm);
+       
             state.arrFilmDefault = state.arrFilm;
             return {...state}
         }
