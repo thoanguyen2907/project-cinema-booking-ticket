@@ -3,11 +3,14 @@ import {CarouselReducer} from './reducers/CarouselReducer/CarouselReducer';
 
 import {QuanLyRapReducer} from './reducers/QuanLyRapChieuReducer/QuanLyRapChieuReducer'; 
 
+import {QuanLyPhimReducer} from './reducers/QuanLyPhimReducer/QuanLyPhimReducer'; 
+
 import thunk from 'redux-thunk'; 
 
 const rootReducer = combineReducers({
     CarouselReducer, 
-    QuanLyRapReducer
+    QuanLyRapReducer, 
+    QuanLyPhimReducer
 
 });
 

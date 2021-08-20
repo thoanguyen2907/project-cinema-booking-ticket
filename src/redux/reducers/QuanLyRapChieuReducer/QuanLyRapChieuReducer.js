@@ -3,7 +3,9 @@ heThongRapChieu : []
 }
 
 export const QuanLyRapReducer = (state = stateDefault, action) => {
-    switch (action.types) {
+
+    switch (action.type) {
+      
 
     case "LAY_DANH_SACH_RAP_CHIEU_PHIM":
         state.heThongRapChieu = action.heThongRapChieu
