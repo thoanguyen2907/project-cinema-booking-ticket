@@ -22,8 +22,10 @@ export default function Detail(props) {
         dispatch(layDanhChiTietPhimAction(id))
     }, []);
 
+    console.log({filmDetail});
+
     return (
-        <div style={{backgroundImage:'url(https://picsum.photos/1000)',minHeight:'100vh'}}>
+        <div style={{backgroundImage: `url(${filmDetail.hinhAnh})`, backgroundSize: '100%', backgroundPosition: 'center', minHeight: '100vh' }}>
         <CustomCard
             style={{paddingTop:150,minHeight:'100vh'}}
             effectColor="#fff" // required
@@ -31,36 +33,32 @@ export default function Detail(props) {
             blur={20} // default blur value is 10px
             borderRadius={0} // default border radius value is 10px
         >
-            <div className="grid grid-cols-12">
+             <div className="grid grid-cols-12">
                     <div className="col-span-5 col-start-3">
                         <div className="grid grid-cols-3">
-                            <img className="col-span-1" src=""style={{ width: '100%', height: 300 }} alt="123" />
-                            <div className="col-span-2 ml-5" style={{ marginTop: '25%' }}>
-                                <p className="text-sm">Ngày chiếu: </p>
-                                <p className="text-4xl leading-3">abc</p>
-                            
+                            <img className="col-span-1" src={filmDetail.hinhAnh} style={{ width: '100%', height: 300 }} alt="123" />
+                            <div className="col-span-2 ml-5" style={{ marginTop: '18%' }}>
+                                <p className="text-sm">Ngày chiếu: {moment(filmDetail.ngayKhoiChieu).format('DD.MM.YYYY')}</p>
+                                <p className="text-4xl leading-3">{filmDetail.tenPhim}</p>
+                                <p>{filmDetail.moTa}</p>
                             </div>
                         </div>
 
                     </div>
 
                     <div className="col-span-4">
-                        {/* <h1 style={{ marginLeft: '15%', color: 'yellow', fontWeight: 'bold', fontSize: 15 }}>Đánh giá</h1>
-                        <h1 style={{ marginLeft: '5%' }} className="text-green-400 text-2xl"><Rate allowHalf  style={{ color: '#78ed78', fontSize: 30 }} /></h1> */}
-                        <div >
-                            
-                            <div className="col-span-4">
-                                <div className="c100 p50 big">
-                                    <span>50%</span>
-                                    <div className="slice">
+                        <h1 style={{ marginLeft: '15%', color: 'yellow', fontWeight: 'bold', fontSize: 15 }}>Đánh giá</h1>
+                        <h1 style={{ marginLeft: '5%' }} className="text-green-400 text-2xl"><Rate allowHalf value={filmDetail.danhGia / 2} style={{ color: '#78ed78', fontSize: 30 }} /></h1>
+                        <div className={`c100 p${filmDetail.danhGia * 10} big`}>
+                            <span className="text-white">
+
+                                {filmDetail.danhGia * 10}%
+                            </span>
+                            <div className="slice">
                                 <div className="bar"></div>
                                 <div className="fill"></div>
 
                             </div>
-                                </div>
-                            
-                            </div>
-                           
 
                         </div>
                         <br />
