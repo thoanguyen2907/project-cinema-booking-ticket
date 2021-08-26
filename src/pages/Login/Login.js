@@ -1,8 +1,26 @@
-import React from 'react'
+import React from 'react';
+import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { dangNhapAction } from '../../redux/actions/QuanLyNguoiiDungAction/QuanLyNguoiiDungAction';
 
 export default function Login() {
+    const dispatch = useDispatch(); 
+    const formik = useFormik({
+        initialValues: {
+          taiKhoan: '',
+          matKhau: '',
+         
+        },
+        onSubmit: values => {
+          console.log("values", values);
+          const action = dangNhapAction(values);
+
+          dispatch(action)
+        },
+      });
+
     return (
-        <div className="lg:w-1/2 xl:max-w-screen-sm">
+        <form onSubmit = {formik.handleSubmit} className="lg:w-1/2 xl:max-w-screen-sm">
         <div className="py-12 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12">
           <div className="cursor-pointer flex items-center">
             <div>
@@ -22,10 +40,10 @@ export default function Login() {
           <h2 className="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl
                   xl:text-bold">Log in</h2>
           <div className="mt-12">
-            <form>
+            <div>
               <div>
-                <div className="text-sm font-bold text-gray-700 tracking-wide">Email Address</div>
-                <input className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type placeholder="mike@gmail.com" />
+                <div className="text-sm font-bold text-gray-700 tracking-wide">Tài Khoản</div>
+                <input name="taiKhoan" onChange={formik.handleChange} className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"  placeholder="mike@gmail.com" />
               </div>
               <div className="mt-8">
                 <div className="flex justify-between items-center">
@@ -33,13 +51,12 @@ export default function Login() {
                     Password
                   </div>
                   <div>
-                    <a className="text-xs font-display font-semibold text-indigo-600 hover:text-indigo-800
-                                      cursor-pointer">
+                    <p className="text-xs font-display font-semibold text-indigo-600 hover:text-indigo-800 cursor-pointer">
                       Forgot Password?
-                    </a>
+                    </p>
                   </div>
                 </div>
-                <input className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type placeholder="Enter your password" />
+                <input name="matKhau"  onChange={formik.handleChange} className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="password" placeholder="Enter your password" />
               </div>
               <div className="mt-10">
                 <button className="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
@@ -48,12 +65,12 @@ export default function Login() {
                   Log In
                 </button>
               </div>
-            </form>
+            </div>
             <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
               Don't have an account ? <a className="cursor-pointer text-indigo-600 hover:text-indigo-800">Sign up</a>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     )
 }
