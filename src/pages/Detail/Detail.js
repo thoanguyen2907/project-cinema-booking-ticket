@@ -65,20 +65,52 @@ export default function Detail(props) {
 
                     </div>
                 </div>
-       
-        <div className="mt-5">
+                <div className="mt-10 ml-72 container bg-white px-5 py-5 w-2/3">
+                <Tabs defaultActiveKey="1" centered>
+    <TabPane tab="Lịch chiếu" key="1">
+    <div className="mt-20 container bg-white mx-auto">
         <Tabs tabPosition={'left'}>
-          <TabPane tab="Tab 1" key="1">
-            Content of Tab 1
-          </TabPane>
-          <TabPane tab="Tab 2" key="2">
-            Content of Tab 2
-          </TabPane>
-          <TabPane tab="Tab 3" key="3">
-            Content of Tab 3
-          </TabPane>
+            {filmDetail.heThongRapChieu?.map((htr, index) => {
+                return   <TabPane tab={<div>
+                     <img src={htr.logo} width="50" className="rounded-full" alt={htr.tenHeThongRap}/> {htr.tenHeThongRap}
+                     </div>} key={index}>
+                    {htr.cumRapChieu?.map((cumRap, index) => {
+                        return <div className="mt-5" key={index}>
+                            <div className="flex flex-row">
+                                <img style={{width:60, height:60}} src={cumRap.hinhAnh} alt={cumRap.tenCumRap} />
+                                <div className="">
+                                <p className="ml-3" style={{fontSize:20, fontWeight:'bold', lineHeight:1}}> {cumRap.tenCumRap}</p>
+                                <p className="ml-3 text-gray-300" style={{marginTop: 0}}> {cumRap.tenCumRap}</p>
+                                </div>
+                                
+                            </div>
+                            <div className="thong-tin-lich-chieu grid grid-cols-4">
+                                {cumRap.lichChieuPhim?.slice(0,12).map((lichChieu, index) => {
+                                    return  <NavLink to ="/" key={index} className="col-span-1 text-green-800 font-bold">
+                                        {moment(lichChieu.ngayChieuGioChieu).format('hh:mm: A')}
+                                    </NavLink>
+                                })}
+                                
+                            </div>
+                             
+                        </div>
+                    })}
+              </TabPane>
+            })}
+         
         </Tabs>
         </div>
+    </TabPane>
+    <TabPane tab="Thông tin" key="2">
+    Thông tin
+    </TabPane>
+    <TabPane tab="Đánh giá" key="3">
+    Đánh giá
+    </TabPane>
+  </Tabs>
+  </div>
+       
+       
         </CustomCard>
         
     </div>
