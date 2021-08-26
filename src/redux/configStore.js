@@ -4,13 +4,15 @@ import {CarouselReducer} from './reducers/CarouselReducer/CarouselReducer';
 import {QuanLyRapReducer} from './reducers/QuanLyRapChieuReducer/QuanLyRapChieuReducer'; 
 
 import {QuanLyPhimReducer} from './reducers/QuanLyPhimReducer/QuanLyPhimReducer'; 
+import {QuanLyNguoiDungReducer} from './reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungReducer'; 
 
 import thunk from 'redux-thunk'; 
 
 const rootReducer = combineReducers({
     CarouselReducer, 
     QuanLyRapReducer, 
-    QuanLyPhimReducer
+    QuanLyPhimReducer,
+    QuanLyNguoiDungReducer
 
 });
 
