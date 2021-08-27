@@ -1,9 +1,58 @@
-import React from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Tabs } from 'antd';
 import style from './Checkout.module.css';
+import './Checkout.css'; 
 import { CheckOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction/QuanLyDatVeAction';
+import { DAT_VE } from '../../redux/types/QuanLyDatVeTypes';
 
  function Checkout(props) {
+     const {chiTietPhongVe, danhSachGheDangDat} =  useSelector(state => state.QuanLyDatVeReducer)
+
+    console.log({danhSachGheDangDat})
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        const maLichChieu = props.match.params.id; 
+       dispatch(layChiTietPhongVeAction(maLichChieu))
+    }, []);
+
+    const {thongTinPhim, danhSachGhe} = chiTietPhongVe; 
+
+    const renderSeats = () => {
+        return danhSachGhe?.map((ghe, index) => {
+
+            let classGheVip = ghe.loaiGhe === 'Vip' ? 'gheVip' : '';
+            let classGheDaDat = ghe.daDat === true ? 'gheDaDat' : '';
+            let classGheDangDat = '';
+           
+             //Kiểm tra từng ghế render xem có trong mảng ghế đang đặt hay không
+             let indexGheDD = danhSachGheDangDat.findIndex(gheDD => gheDD.maGhe === ghe.maGhe);
+
+           
+        
+ 
+             if (indexGheDD != -1) {
+                 classGheDaDat = 'gheDangDat';
+             }
+            
+            return  <button 
+            onClick = {() => {
+                dispatch({
+                    type: DAT_VE,
+                    gheDuocChon: ghe
+                })
+            }}
+            disabled={ghe.daDat} className={`ghe ${classGheVip} ${classGheDangDat} ${classGheDaDat} text-center`} key = {index}>
+      
+                {ghe.daDat ? <CloseOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> : ghe.stt}
+                </button>
+              
+        })
+    }
+
     return (
         <div className=" min-h-screen mt-5" >
         <div className="grid grid-cols-12">
@@ -16,7 +65,7 @@ import { CheckOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
                         <h3 className="mt-3 text-black">Màn hình</h3>
                     </div>
                     <div>
-                        
+                        {renderSeats()}
                     </div>
                 </div>
 
@@ -47,9 +96,9 @@ import { CheckOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
             <div className="col-span-3">
                 <h3 className="text-green-400 text-center text-4xl"> 10 đ</h3>
                 <hr />
-                <h3 className="text-xl mt-2">abc</h3>
-                <p>Địa điểm: </p>
-                <p>Ngày chiếu: </p>
+                <h3 className="text-xl mt-2">{thongTinPhim?.tenPhim}</h3>
+                <p>Địa điểm: {thongTinPhim?.tenCumRap}</p>
+                <p>Ngày chiếu: {thongTinPhim?.ngayChieu}</p>
                 <hr />
                 <div className="flex flex-row my-5">
                     <div className="w-4/5">

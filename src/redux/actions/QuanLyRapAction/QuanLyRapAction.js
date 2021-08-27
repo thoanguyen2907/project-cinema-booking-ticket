@@ -24,7 +24,6 @@ export const  layDanhChiTietPhimAction= (id) => {
     return async (dispatch) => {
         try {
             const result = await quanLyRapService.layThongTinLichChieuPhim(id);
-            console.log("result", result)
             if(result.status === 200) {
                 dispatch({
                     type: "SET_CHI_TIET_PHIM", 
