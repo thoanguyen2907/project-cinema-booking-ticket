@@ -3,25 +3,27 @@ import { quanLyNguoiDungService } from '../../../services/QuanLyNguoiDungService
 import { quanLyPhimService } from '../../../services/QuanLyPhimService';
 import { quanLyRapService } from '../../../services/QuanLyRapService';
 import { useHistory } from "react-router-dom";
+import { quanLyDatVeService } from '../../../services/QuanLyDatVeService';
+import { SET_CHI_TIET_PHONG_VE } from '../../types/QuanLyDatVeTypes';
 
-export const  dangNhapAction= (thongTinDangNhap) => {
+export const  layChiTietPhongVeAction= (maLichChieu) => {
 
     return async (dispatch) => {
-        let history = useHistory();
+
 
         try {
-            const result = await quanLyNguoiDungService.dangNhap(thongTinDangNhap) ;
-            console.log("result", result)
+            const result = await quanLyDatVeService.layChiTietDatVe(maLichChieu) ;
+            
             if(result.data.statusCode === 200) {
                 dispatch({
-                    type: "DANG_NHAP_ACTION", 
-                    thongTinDangNhap: result.data.content
+                    type: SET_CHI_TIET_PHONG_VE, 
+                    chiTietPhongVe: result.data.content
                 });
-                history.goBack()
+             
             }
            
         } catch(errors) {
-            console.log("errors", errors.response.data)
+            console.log("errors", errors?.response.data)
         }
     }
 }
