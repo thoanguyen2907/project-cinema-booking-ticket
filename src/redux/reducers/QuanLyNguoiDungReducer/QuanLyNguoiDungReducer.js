@@ -1,19 +1,25 @@
+import { TOKEN, USER_LOGIN } from "../../../util/settings/config";
+import { DANG_NHAP_ACTION } from "../../types/QuanLyNguoiDungType";
 import { SET_DANH_SACH_PHIM, SET_FILM_SAP_CHIEU,SET_FILM_DANG_CHIEU, SET_CHI_TIET_PHIM } from "../../types/QuanLyPhimType"
 
 
-
+let user = {}; 
+if(localStorage.getItem(USER_LOGIN)){
+    user = JSON.parse(localStorage.getItem(USER_LOGIN)); 
+}
 const stateDefault = {
-userLLogin: {}
+userLogin: user
 }
 
 export const QuanLyNguoiDungReducer = (state=stateDefault,action ) => {
     switch(action.type) {
 
-        case SET_DANH_SACH_PHIM : {
-            state.arrFilm = action.arrFilm;
-       
-            state.arrFilmDefault = state.arrFilm;
-            return {...state}
+        case DANG_NHAP_ACTION : {
+            const {thongTinDangNhap} = action; 
+            localStorage.setItem(USER_LOGIN, JSON.stringify(thongTinDangNhap));
+            localStorage.setItem(TOKEN, thongTinDangNhap.accessToken); 
+
+            return {...state, userLogin: thongTinDangNhap}
         }
         
 
