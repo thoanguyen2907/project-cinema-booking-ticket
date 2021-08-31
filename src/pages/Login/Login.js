@@ -1,10 +1,12 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dangNhapAction } from '../../redux/actions/QuanLyNguoiiDungAction/QuanLyNguoiiDungAction';
 
 export default function Login() {
     const dispatch = useDispatch(); 
+    const {userLogin} = useSelector(state=>state.QuanLyNguoiDungReducer);
+    console.log('userLogin',userLogin)
     const formik = useFormik({ 
         initialValues: {
           taiKhoan: '',

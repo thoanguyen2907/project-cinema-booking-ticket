@@ -5,11 +5,11 @@ import { quanLyRapService } from '../../../services/QuanLyRapService';
 import { useHistory } from "react-router-dom";
 import { quanLyDatVeService } from '../../../services/QuanLyDatVeService';
 import { SET_CHI_TIET_PHONG_VE } from '../../types/QuanLyDatVeTypes';
+import { ThongTinDatVe } from '../../../_core/models/ThongTinDatVe';
 
 export const  layChiTietPhongVeAction= (maLichChieu) => {
 
     return async (dispatch) => {
-
 
         try {
             const result = await quanLyDatVeService.layChiTietDatVe(maLichChieu) ;
@@ -27,3 +27,23 @@ export const  layChiTietPhongVeAction= (maLichChieu) => {
         }
     }
 }
+
+export const  datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
+
+    return async (dispatch) => {
+        console.log({thongTinDatVe});
+
+        try {
+            const result = await quanLyDatVeService.datVe(thongTinDatVe) ;
+            
+            if(result.data.statusCode === 200) {
+                console.log(result.data.content)
+             
+            }
+           
+        } catch(errors) {
+            console.log("errors", errors?.response.data)
+        }
+    }
+}
+

@@ -5,13 +5,15 @@ import './Checkout.css';
 import { CheckOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction/QuanLyDatVeAction';
+import { datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction/QuanLyDatVeAction';
 import { DAT_VE } from '../../redux/types/QuanLyDatVeTypes';
-
+import _ from 'lodash';
+import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
  function Checkout(props) {
-     const {chiTietPhongVe, danhSachGheDangDat} =  useSelector(state => state.QuanLyDatVeReducer)
+     const {chiTietPhongVe, danhSachGheDangDat} =  useSelector(state => state.QuanLyDatVeReducer);
+     console.log({chiTietPhongVe});
+     const {userLogin} = useSelector(state => state.QuanLyNguoiDungReducer); 
 
-    console.log({danhSachGheDangDat})
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -30,25 +32,29 @@ import { DAT_VE } from '../../redux/types/QuanLyDatVeTypes';
            
              //Kiểm tra từng ghế render xem có trong mảng ghế đang đặt hay không
              let indexGheDD = danhSachGheDangDat.findIndex(gheDD => gheDD.maGhe === ghe.maGhe);
+          
+            let classGheDaDuocDat = ''; 
+            if(userLogin.taiKhoan === ghe.taiKhoanNguoiDat){
+                classGheDaDuocDat = 'gheDaDuocDat'
+            } 
 
-           
-        
- 
              if (indexGheDD != -1) {
                  classGheDaDat = 'gheDangDat';
              }
             
-            return  <button 
-            onClick = {() => {
+            return <Fragment key = {index}> 
+            <button onClick = {() => {
                 dispatch({
                     type: DAT_VE,
                     gheDuocChon: ghe
                 })
             }}
-            disabled={ghe.daDat} className={`ghe ${classGheVip} ${classGheDangDat} ${classGheDaDat} text-center`} key = {index}>
+            disabled={ghe.daDat} className={`ghe ${classGheVip} ${classGheDaDuocDat} ${classGheDangDat} ${classGheDaDat} text-center`} key = {index}>
       
-                {ghe.daDat ? <CloseOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> : ghe.stt}
+                {ghe.daDat ? classGheDaDuocDat !== ""?<UserOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} />: <CloseOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> : ghe.stt}
                 </button>
+                 {(index + 1) % 16 === 0 ? <br /> : ''}
+                 </Fragment>
               
         })
     }
@@ -103,12 +109,16 @@ import { DAT_VE } from '../../redux/types/QuanLyDatVeTypes';
                 <div className="flex flex-row my-5">
                     <div className="w-4/5">
                         <span className="text-red-400 text-lg">Ghế</span>
-
+                    {_.sortBy(danhSachGheDangDat, ['stt']).map((gheDD, index) => {
+                        return <span key = {index} className="text-green-500 text-xl mr-2">{gheDD.stt}</span>
+                    })}
                      
                     </div>
                     <div className="text-right col-span-1">
                         <span className="text-green-800 text-lg">
-                            
+                            {danhSachGheDangDat.reduce((tongTien, ghe, index) => {
+                                return tongTien += ghe.giaVe;
+                            },0).toLocaleString()}
                         </span>
                     </div>
                 </div>
@@ -124,7 +134,15 @@ import { DAT_VE } from '../../redux/types/QuanLyDatVeTypes';
                 </div>
                 <hr />
                 <div className="mb-0 h-full flex flex-col items-center" style={{ marginBottom: 0 }}>
-                    <div  className="bg-green-500 text-white w-full text-center py-3 font-bold text-2xl cursor-pointer">
+                    <div  className="bg-green-500 text-white w-full text-center py-3 font-bold text-2xl cursor-pointer"
+                        onClick = {() => {
+                            const thongTinDatVe = new ThongTinDatVe(); 
+                            thongTinDatVe.danhSachVe = danhSachGheDangDat; 
+                            thongTinDatVe.maLichChieu = props.match.params.id; 
+
+                            dispatch(datVeAction(thongTinDatVe))
+                        }}
+                    >
                         ĐẶT VÉ
                     </div>
                 </div>

@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 export const  dangNhapAction= (thongTinDangNhap) => {
 
     return async (dispatch) => {
-        let history = useHistory();
+  
 
         try {
             const result = await quanLyNguoiDungService.dangNhap(thongTinDangNhap) ;
@@ -17,7 +17,7 @@ export const  dangNhapAction= (thongTinDangNhap) => {
                     type: "DANG_NHAP_ACTION", 
                     thongTinDangNhap: result.data.content
                 });
-                history.goBack()
+          
             }
            
         } catch(errors) {
