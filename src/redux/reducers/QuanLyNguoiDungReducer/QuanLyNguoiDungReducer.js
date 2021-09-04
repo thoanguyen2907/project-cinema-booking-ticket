@@ -1,5 +1,5 @@
 import { TOKEN, USER_LOGIN } from "../../../util/settings/config";
-import { DANG_NHAP_ACTION } from "../../types/QuanLyNguoiDungType";
+import { DANG_NHAP_ACTION, SET_THONG_TIN_NGUOI_DUNG } from "../../types/QuanLyNguoiDungType";
 import { SET_DANH_SACH_PHIM, SET_FILM_SAP_CHIEU,SET_FILM_DANG_CHIEU, SET_CHI_TIET_PHIM } from "../../types/QuanLyPhimType"
 
 
@@ -8,7 +8,8 @@ if(localStorage.getItem(USER_LOGIN)){
     user = JSON.parse(localStorage.getItem(USER_LOGIN)); 
 }
 const stateDefault = {
-userLogin: user
+userLogin: user,
+thongTinNguoiDung: {}
 }
 
 export const QuanLyNguoiDungReducer = (state=stateDefault,action ) => {
@@ -21,6 +22,11 @@ export const QuanLyNguoiDungReducer = (state=stateDefault,action ) => {
 
             return {...state, userLogin: thongTinDangNhap}
         }
+        case SET_THONG_TIN_NGUOI_DUNG: {
+            state.thongTinNguoiDung = action.thongTinNguoiDung; 
+            return {...state}
+        }
+
         
 
         default : return {...state}
