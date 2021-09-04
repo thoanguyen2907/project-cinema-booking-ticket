@@ -196,6 +196,29 @@ function KetQuaDatVe(props) {
 
     console.log({thongTinNguoiDung});
 
+    const renderTicketItem = () => {
+        return thongTinNguoiDung.thongTinDatVe?.map((ticket, index) => {
+            const seats = _.first(ticket.danhSachGhe); 
+            return <div key = {index} className="p-2 lg:w-1/3 md:w-1/2 w-full">
+            <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+                <img alt="team" className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src={ticket?.hinhAnh} />
+                <div className="flex-grow">
+                    <h2 className="text-gray-900 title-font font-medium">{ticket?.tenPhim}</h2>
+                    <p className="text-gray-500">{ticket?.ngayDat} </p>
+                    <p> 
+                        Tên rạp: {seats.tenHeThongRap}
+                    </p>
+                    <p> 
+                        Tên rạp: {seats.tenCumRap} - Ghế {ticket.danhSachGhe.map((ghe, index) => {
+                            return <span key = {index} className = "mx-1">{ghe.tenGhe}</span>
+                        })}
+                    </p>
+                </div>
+            </div>
+        </div>
+        })
+    }
+
 return <div className="p-5">
 
     <section className="text-gray-600 body-font">
@@ -205,16 +228,8 @@ return <div className="p-5">
                 <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Hãy xem thông tin địa và thời gian để xem phim vui vẻ bạn nhé !</p>
             </div>
             <div className="flex flex-wrap -m-2">
+                {renderTicketItem()}
                 
-                <div className="p-2 lg:w-1/3 md:w-1/2 w-full">
-                    <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-                        <img alt="team" className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="https://picsum.photos/200/200" />
-                        <div className="flex-grow">
-                            <h2 className="text-gray-900 title-font font-medium">Lật mặt 48h</h2>
-                            <p className="text-gray-500">10:20 Rạp 5, Hệ thống rạp cinestar bhd </p>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>
