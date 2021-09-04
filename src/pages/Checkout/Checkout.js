@@ -9,11 +9,12 @@ import { datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLy
 import { DAT_VE } from '../../redux/types/QuanLyDatVeTypes';
 import _ from 'lodash';
 import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
+import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiiDungAction/QuanLyNguoiiDungAction';
  function Checkout(props) {
      const {chiTietPhongVe, danhSachGheDangDat} =  useSelector(state => state.QuanLyDatVeReducer);
      console.log({chiTietPhongVe});
      const {userLogin} = useSelector(state => state.QuanLyNguoiDungReducer); 
-
+     
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -74,6 +75,7 @@ import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
                         {renderSeats()}
                     </div>
                 </div>
+              
 
                 <div className="mt-5 flex justify-center">
                     <table className=" divide-y divide-gray-200 w-2/3">
@@ -179,10 +181,20 @@ return <div className="p-5">
 
 
 function KetQuaDatVe(props) {
+    
+    const dispatch = useDispatch();
+    
+    const {thongTinNguoiDung} = useSelector(state => state.QuanLyNguoiDungReducer); 
+
+    const {userLogin} = useSelector(state => state.QuanLyNguoiDungReducer); 
+  
 
 
+    useEffect(() => {
+     dispatch(layThongTinNguoiDungAction())
+    }, []);
 
-
+    console.log({thongTinNguoiDung});
 
 return <div className="p-5">
 
