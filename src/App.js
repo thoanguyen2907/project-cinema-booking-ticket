@@ -14,12 +14,14 @@ import Detail from './pages/Detail/Detail';
 import UserTemplate from './templates/UserTemplate/UserTemplate';
 import CheckoutTemplate from './templates/CheckoutTemplate/CheckoutTemplate';
 import Checkout from './pages/Checkout/Checkout';
+import Loading from './components/GlobalSetting/Loading';
 
 export const history = createBrowserHistory(); 
 
 export default function App() {
   return (
     <Router history = {history}> 
+      <Loading/>
     <Switch>
     <HomeTemplate path = "/home" exact Component = {Home}/> 
     <HomeTemplate path = "/" exact Component = {Home}/> 
