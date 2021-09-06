@@ -6,6 +6,7 @@ import {QuanLyRapReducer} from './reducers/QuanLyRapChieuReducer/QuanLyRapChieuR
 import {QuanLyPhimReducer} from './reducers/QuanLyPhimReducer/QuanLyPhimReducer'; 
 import {QuanLyNguoiDungReducer} from './reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungReducer'; 
 import {QuanLyDatVeReducer} from './reducers/QuanLyDatVeReducer/QuanLyDatVeReducer'; 
+import {LoadingReducer} from './reducers/LoadingReducer/LoadingReducer'; 
 import thunk from 'redux-thunk'; 
 
 const rootReducer = combineReducers({
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     QuanLyRapReducer, 
     QuanLyPhimReducer,
     QuanLyNguoiDungReducer,
-    QuanLyDatVeReducer
+    QuanLyDatVeReducer,
+    LoadingReducer
 
 });
 

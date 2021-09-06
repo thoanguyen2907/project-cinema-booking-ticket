@@ -2,16 +2,17 @@ import React, { Fragment, useEffect } from 'react';
 import { Tabs } from 'antd';
 import style from './Checkout.module.css';
 import './Checkout.css'; 
-import { CheckOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
+import { CheckOutlined, CloseOutlined, UserOutlined, SmileOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction/QuanLyDatVeAction';
 import { DAT_VE } from '../../redux/types/QuanLyDatVeTypes';
 import _ from 'lodash';
 import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
+import moment from 'moment';
 import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiiDungAction/QuanLyNguoiiDungAction';
  function Checkout(props) {
-     const {chiTietPhongVe, danhSachGheDangDat} =  useSelector(state => state.QuanLyDatVeReducer);
+     const {chiTietPhongVe, danhSachGheDangDat, danhSachGheKhachDat} =  useSelector(state => state.QuanLyDatVeReducer);
      console.log({chiTietPhongVe});
      const {userLogin} = useSelector(state => state.QuanLyNguoiDungReducer); 
      
@@ -38,6 +39,12 @@ import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiiDung
             if(userLogin.taiKhoan === ghe.taiKhoanNguoiDat){
                 classGheDaDuocDat = 'gheDaDuocDat'
             } 
+             //Kiểm tra từng render xem có phải ghế khách đặt hay không
+             let classGheKhachDat = '';
+             let indexGheKD = danhSachGheKhachDat.findIndex(gheKD => gheKD.maGhe === ghe.maGhe);
+             if(indexGheKD !== -1){
+                 classGheKhachDat = 'gheKhachDat';
+             }
 
              if (indexGheDD != -1) {
                  classGheDaDat = 'gheDangDat';
@@ -50,9 +57,9 @@ import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiiDung
                     gheDuocChon: ghe
                 })
             }}
-            disabled={ghe.daDat} className={`ghe ${classGheVip} ${classGheDaDuocDat} ${classGheDangDat} ${classGheDaDat} text-center`} key = {index}>
+            disabled={ghe.daDat || classGheKhachDat !==''} className={`ghe ${classGheVip} ${classGheDaDuocDat} ${classGheKhachDat} ${classGheDangDat} ${classGheDaDat} text-center`} key = {index}>
       
-                {ghe.daDat ? classGheDaDuocDat !== ""?<UserOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} />: <CloseOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> : ghe.stt}
+      {ghe.daDat  ? classGheDaDuocDat != '' ? <UserOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> : <CloseOutlined style={{ marginBottom: 7.5, fontWeight: 'bold' }} /> : classGheKhachDat !=='' ? <SmileOutlined  style={{ marginBottom: 7.5, fontWeight: 'bold' }} />  :  ghe.stt}
                 </button>
                  {(index + 1) % 16 === 0 ? <br /> : ''}
                  </Fragment>
@@ -102,7 +109,7 @@ import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiiDung
 
             </div>
             <div className="col-span-3">
-                <h3 className="text-green-400 text-center text-4xl"> 10 đ</h3>
+                <h3 className="text-green-400 text-center text-4xl"> 0</h3>
                 <hr />
                 <h3 className="text-xl mt-2">{thongTinPhim?.tenPhim}</h3>
                 <p>Địa điểm: {thongTinPhim?.tenCumRap}</p>
@@ -162,10 +169,17 @@ const { TabPane } = Tabs;
 function callback(key) {
 console.log(key);
 }
-export default function (props) {
-
+export default function CheckoutTab (props) {
+    const {tabActive} = useSelector(state=>state.QuanLyDatVeReducer);
+    const dispatch = useDispatch();
 return <div className="p-5">
-    <Tabs defaultActiveKey="1" onChange={callback}>
+    <Tabs defaultActiveKey="1"  activeKey={tabActive}
+    onChange={(key)=>{
+       dispatch({
+            type:'CHANGE_TAB_ACTIVE',
+            number:key.toString()
+        })
+    }}>
         <TabPane tab="01 CHỌN GHẾ & THANH TOÁN" key="1">
             <Checkout {...props} />
         </TabPane>
@@ -204,7 +218,7 @@ function KetQuaDatVe(props) {
                 <img alt="team" className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src={ticket?.hinhAnh} />
                 <div className="flex-grow">
                     <h2 className="text-gray-900 title-font font-medium">{ticket?.tenPhim}</h2>
-                    <p className="text-gray-500">{ticket?.ngayDat} </p>
+                    <p className="text-gray-500"><span className="font-bold">Giờ chiếu:</span> {moment(ticket.ngayDat).format('hh:mm A')} - <span className="font-bold">Ngày chiếu:</span>  {moment(ticket.ngayDat).format('DD-MM-YYYY')} .</p>
                     <p> 
                         Tên rạp: {seats.tenHeThongRap}
                     </p>

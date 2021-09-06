@@ -4,8 +4,9 @@ import { quanLyPhimService } from '../../../services/QuanLyPhimService';
 import { quanLyRapService } from '../../../services/QuanLyRapService';
 import { useHistory } from "react-router-dom";
 import { quanLyDatVeService } from '../../../services/QuanLyDatVeService';
-import { SET_CHI_TIET_PHONG_VE } from '../../types/QuanLyDatVeTypes';
+import { CHUYEN_TAB, DAT_VE_HOAN_TAT, SET_CHI_TIET_PHONG_VE } from '../../types/QuanLyDatVeTypes';
 import { ThongTinDatVe } from '../../../_core/models/ThongTinDatVe';
+import { DISPLAY_LOADING, HIDE_LOADING } from '../../types/LoadingTypes';
 
 export const  layChiTietPhongVeAction= (maLichChieu) => {
 
@@ -34,12 +35,26 @@ export const  datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
         console.log({thongTinDatVe});
 
         try {
+            await dispatch({
+                type: DISPLAY_LOADING
+            })
             const result = await quanLyDatVeService.datVe(thongTinDatVe) ;
             
             if(result.data.statusCode === 200) {
                 console.log(result.data.content)
              
             }
+            await dispatch(layChiTietPhongVeAction(thongTinDatVe.maLichChieu));
+            await dispatch({
+                type: DAT_VE_HOAN_TAT
+            })
+            await dispatch({
+                type: HIDE_LOADING
+            });
+            await dispatch({
+                type:CHUYEN_TAB
+            });
+        
            
         } catch(errors) {
             console.log("errors", errors?.response.data)
