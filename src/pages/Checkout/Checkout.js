@@ -5,13 +5,15 @@ import './Checkout.css';
 import { CheckOutlined, CloseOutlined, UserOutlined, SmileOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction/QuanLyDatVeAction';
+import { datGheAction, datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction/QuanLyDatVeAction';
 import { DAT_VE } from '../../redux/types/QuanLyDatVeTypes';
 import _ from 'lodash';
 import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
 import moment from 'moment';
 import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiiDungAction/QuanLyNguoiiDungAction';
- function Checkout(props) {
+import { connection } from '../../index';
+
+function Checkout(props) {
      const {chiTietPhongVe, danhSachGheDangDat, danhSachGheKhachDat} =  useSelector(state => state.QuanLyDatVeReducer);
      console.log({chiTietPhongVe});
      const {userLogin} = useSelector(state => state.QuanLyNguoiDungReducer); 
@@ -20,7 +22,11 @@ import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiiDung
     
     useEffect(() => {
         const maLichChieu = props.match.params.id; 
-       dispatch(layChiTietPhongVeAction(maLichChieu))
+       dispatch(layChiTietPhongVeAction(maLichChieu));
+
+               //Vừa vào trang load tất cả ghế của các người khác đang đặt
+               connection.invoke('loadDanhSachGhe',props.match.params.id);
+
     }, []);
 
     const {thongTinPhim, danhSachGhe} = chiTietPhongVe; 
@@ -52,10 +58,8 @@ import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiiDung
             
             return <Fragment key = {index}> 
             <button onClick = {() => {
-                dispatch({
-                    type: DAT_VE,
-                    gheDuocChon: ghe
-                })
+                   const action = datGheAction(ghe,props.match.params.id);
+                   dispatch(action);
             }}
             disabled={ghe.daDat || classGheKhachDat !==''} className={`ghe ${classGheVip} ${classGheDaDuocDat} ${classGheKhachDat} ${classGheDangDat} ${classGheDaDat} text-center`} key = {index}>
       
