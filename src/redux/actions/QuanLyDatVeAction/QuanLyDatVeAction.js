@@ -4,9 +4,10 @@ import { quanLyPhimService } from '../../../services/QuanLyPhimService';
 import { quanLyRapService } from '../../../services/QuanLyRapService';
 import { useHistory } from "react-router-dom";
 import { quanLyDatVeService } from '../../../services/QuanLyDatVeService';
-import { CHUYEN_TAB, DAT_VE_HOAN_TAT, SET_CHI_TIET_PHONG_VE } from '../../types/QuanLyDatVeTypes';
+import { CHUYEN_TAB, DAT_VE, DAT_VE_HOAN_TAT, SET_CHI_TIET_PHONG_VE } from '../../types/QuanLyDatVeTypes';
 import { ThongTinDatVe } from '../../../_core/models/ThongTinDatVe';
 import { DISPLAY_LOADING, HIDE_LOADING } from '../../types/LoadingTypes';
+import { connection } from "../../../index";
 
 export const  layChiTietPhongVeAction= (maLichChieu) => {
 
@@ -60,5 +61,36 @@ export const  datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
             console.log("errors", errors?.response.data)
         }
     }
+}
+
+export const datGheAction = (ghe,maLichChieu) => {
+
+
+    return async (dispatch,getState) => {
+
+        //Đưa thông tin ghế lên reducer
+        await dispatch({
+            type: DAT_VE,
+            gheDuocChon: ghe
+        });
+
+        //Call api về backend 
+        let danhSachGheDangDat = getState().QuanLyDatVeReducer.danhSachGheDangDat;
+        let taiKhoan = getState().QuanLyNguoiDungReducer.userLogin.taiKhoan;
+
+        console.log('danhSachGheDangDat',danhSachGheDangDat);
+        console.log('taiKhoan',taiKhoan);
+        console.log('maLichChieu',maLichChieu);
+        //Biến mảng thành chuỗi
+        danhSachGheDangDat = JSON.stringify(danhSachGheDangDat);
+
+        //Call api signalR
+        connection.invoke('datGhe',taiKhoan,danhSachGheDangDat,maLichChieu);
+
+
+
+
+    }
+
 }
 
