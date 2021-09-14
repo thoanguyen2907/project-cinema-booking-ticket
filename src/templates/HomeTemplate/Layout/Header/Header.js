@@ -1,6 +1,19 @@
 import React from 'react'; 
+import { Select } from 'antd';
+
+//Hook đa ngôn ngữ
+import { useTranslation } from 'react-i18next';
+
+const { Option } = Select;
 
  function Header(props) {
+
+  const { t, i18n } = useTranslation();
+  
+  const handleChange = (value) => {
+    i18n.changeLanguage(value)
+}
+
     return (
       <header className="p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-opacity-30 bg-white text-black w-full fixed z-10">
   <div className="container flex justify-between h-16 mx-auto">
@@ -24,8 +37,17 @@ import React from 'react';
         <a href="abc" className="flex items-center -mb-0.5 border-b-2 px-4 dark:border-transparent">Link</a>
       </li>
     </ul>
+    <div>
+
+    <Select defaultValue="en" style={{ width: 100 }} onChange={handleChange}>
+                        <Option value="en">Eng</Option>
+                        <Option value="chi">Chi</Option>
+
+                        <Option value="vi">Vi</Option>
+                    </Select>
+    </div>
     <div className="items-center flex-shrink-0 hidden lg:flex">
-      <button className="self-center px-8 py-3 rounded">Sign in</button>
+      <button className="self-center px-8 py-3 rounded"> {t('Sign in')}</button>
       <button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-coolGray-900">Sign up</button>
     </div>
     <button className="p-4 lg:hidden">

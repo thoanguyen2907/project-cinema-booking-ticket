@@ -65,7 +65,6 @@ export const  datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
 
 export const datGheAction = (ghe,maLichChieu) => {
 
-
     return async (dispatch,getState) => {
 
         //Đưa thông tin ghế lên reducer
