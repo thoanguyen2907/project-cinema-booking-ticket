@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { Tabs } from 'antd';
 import style from './Checkout.module.css';
 import './Checkout.css'; 
-import { CheckOutlined, CloseOutlined, UserOutlined, SmileOutlined } from '@ant-design/icons'
+import { CheckOutlined, CloseOutlined, UserOutlined, SmileOutlined , HomeOutlined} from '@ant-design/icons'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { datGheAction, datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QuanLyDatVeAction/QuanLyDatVeAction';
@@ -12,6 +12,10 @@ import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
 import moment from 'moment';
 import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiiDungAction/QuanLyNguoiiDungAction';
 import { connection } from '../../index';
+import { useHistory } from 'react-router';
+import { history } from '../../App';
+import { TOKEN, USER_LOGIN } from '../../util/settings/config';
+import { NavLink } from 'react-router-dom';
 
 function Checkout(props) {
      const {chiTietPhongVe, danhSachGheDangDat, danhSachGheKhachDat} =  useSelector(state => state.QuanLyDatVeReducer);
@@ -221,9 +225,32 @@ console.log(key);
 }
 export default function CheckoutTab (props) {
     const {tabActive} = useSelector(state=>state.QuanLyDatVeReducer);
+    const {userLogin} = useSelector(state=>state.QuanLyNguoiDungReducer)
     const dispatch = useDispatch();
+    useEffect(()=>{
+        return ()=> {
+            dispatch({
+                type:'CHANGE_TAB_ACTIVE',
+                number:'1'
+            })
+        }
+    },[]);
+     
+    const operations = <Fragment>
+        {!_.isEmpty(userLogin) ? <Fragment> <button onClick={()=>{
+           history.push('/profile')
+        }}> <div style={{width:50,height:50,display:'flex',justifyContent:'center',alignItems:'center'}} className="text-2xl ml-5 rounded-full bg-red-200">{userLogin.taiKhoan.substr(0,1)}</div>Hello ! {userLogin.taiKhoan}</button> <button onClick={()=>{
+            localStorage.removeItem(USER_LOGIN);
+            localStorage.removeItem(TOKEN);
+            history.push('/home');
+            window.location.reload();
+        }} className="text-blue-800">Đăng xuất</button> </Fragment>: ''} 
+
+
+    </Fragment>
+
 return <div className="p-5">
-    <Tabs defaultActiveKey="1"  activeKey={tabActive}
+    <Tabs tabBarExtraContent={operations} defaultActiveKey="1"  activeKey={tabActive}
     onChange={(key)=>{
        dispatch({
             type:'CHANGE_TAB_ACTIVE',
@@ -236,6 +263,9 @@ return <div className="p-5">
         <TabPane tab="02 KẾT QUẢ ĐẶT VÉ" key="2">
             <KetQuaDatVe {...props} />
         </TabPane>
+        <TabPane tab={<div className="text-center" style={{display:'flex', justifyContent:'center',alignItems:'center'}}><NavLink to="/"><HomeOutlined style={{marginLeft:10,fontSize:25}} /></NavLink></div>} key="3">
+             
+             </TabPane>
 
     </Tabs>
 
@@ -257,6 +287,7 @@ function KetQuaDatVe(props) {
     useEffect(() => {
      dispatch(layThongTinNguoiDungAction())
     }, []);
+
 
     console.log({thongTinNguoiDung});
 
