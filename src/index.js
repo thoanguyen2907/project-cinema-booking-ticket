@@ -8,7 +8,7 @@ import { store } from './redux/configStore';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { DOMAIN } from './util/settings/config';
-
+import './i18n';
 
 //Cấu hình realtime (websocket với signalR)
 import * as signalR from '@aspnet/signalr'

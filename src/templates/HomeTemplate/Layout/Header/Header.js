@@ -1,18 +1,48 @@
-import React from 'react'; 
+import React, { Fragment } from 'react'; 
 import { Select } from 'antd';
-
+import { history } from '../../App';
+import _ from 'lodash';
 //Hook đa ngôn ngữ
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { TOKEN, USER_LOGIN } from '../../../../util/settings/config';
+
 
 const { Option } = Select;
 
  function Header(props) {
-
+  const {userLogin} = useSelector(state => state.QuanLyNguoiDungReducer); 
   const { t, i18n } = useTranslation();
   
   const handleChange = (value) => {
     i18n.changeLanguage(value)
 }
+const renderLogin = () => {
+  
+  if (_.isEmpty(userLogin)) {
+      return <Fragment>
+          <button onClick={() => {
+              history.push('/login')
+          }} className="self-center px-8 py-3 rounded">{t('signin')}</button>
+          <button onClick={() => {
+              history.push('/register')
+          }} className="self-center px-8 py-3 font-semibold rounded bg-violet-600 text-coolGray-50">{t('register')}</button>
+
+      </Fragment>
+  }
+
+  return <Fragment> <button onClick={() => {
+      history.push('/profile')
+  }} className="self-center px-8 py-3 rounded">Hello ! {userLogin.taiKhoan}</button>
+      <button onClick={() => {
+          localStorage.removeItem(USER_LOGIN);
+          localStorage.removeItem(TOKEN);
+          history.push('/home');
+          window.location.reload();
+      }} className="text-yellow-500 mr-5">Đăng xuất</button>
+  </Fragment>
+}
+
 
     return (
       <header className="p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-opacity-30 bg-white text-black w-full fixed z-10">
@@ -37,8 +67,8 @@ const { Option } = Select;
         <a href="abc" className="flex items-center -mb-0.5 border-b-2 px-4 dark:border-transparent">Link</a>
       </li>
     </ul>
-    <div>
-
+    <div className="items-center flex-shrink-0 hidden lg:flex">
+    {renderLogin()}
     <Select defaultValue="en" style={{ width: 100 }} onChange={handleChange}>
                         <Option value="en">Eng</Option>
                         <Option value="chi">Chi</Option>
