@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'; 
 import { Select } from 'antd';
-import { history } from '../../App';
+
 import _ from 'lodash';
 //Hook đa ngôn ngữ
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { TOKEN, USER_LOGIN } from '../../../../util/settings/config';
-
+import { history } from '../../../../App';
 
 const { Option } = Select;
 
