@@ -62,7 +62,6 @@ const Edit = (props) => {
         } else {
           if (values.hinhAnh !== null) {
             formData.append('File', values.hinhAnh, values.hinhAnh.name);
-
           }
         }
       }
