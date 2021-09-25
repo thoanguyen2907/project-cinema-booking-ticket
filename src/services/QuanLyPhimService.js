@@ -23,9 +23,9 @@ layThongTinPhim = (maPhim) => {
 capNhatPhimUpload = (formData) => {
   return this.post(`/api/QuanLyPhim/CapNhatPhimUpload`,formData);
 }
-xoaPhim = (maPhim) => {
-  return this.delete(`/api/QuanLyPhim/XoaPhim?MaPhim=${maPhim}`);
-}
+// xoaPhim = (maPhim) => {
+//   return this.delete(`/api/QuanLyPhim/XoaPhim?MaPhim=${maPhim}`);
+// }
 
 
 }
