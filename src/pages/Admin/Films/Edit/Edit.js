@@ -90,12 +90,12 @@ const Edit = (props) => {
     }
   }
 
-  const handleChangeFile = async (e) => {
+  const handleChangeFile =  (e) => {
     //Lấy file ra từ e
     let file = e.target.files[0];
     if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/gif' || file.type === 'image/png') {
       //Đem dữ liệu file lưu vào formik
-      await formik.setFieldValue('hinhAnh', file);
+       formik.setFieldValue('hinhAnh', file);
       //Tạo đối tượng để đọc file
       let reader = new FileReader();
       reader.readAsDataURL(file);
