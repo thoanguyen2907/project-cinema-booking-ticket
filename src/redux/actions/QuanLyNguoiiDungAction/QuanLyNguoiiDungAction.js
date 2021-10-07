@@ -4,6 +4,7 @@ import { quanLyPhimService } from '../../../services/QuanLyPhimService';
 import { quanLyRapService } from '../../../services/QuanLyRapService';
 import { useHistory } from "react-router-dom";
 import { SET_THONG_TIN_NGUOI_DUNG } from '../../types/QuanLyNguoiDungType';
+import { history } from '../../../App';
 
 export const  dangNhapAction= (thongTinDangNhap) => {
 
@@ -18,8 +19,10 @@ export const  dangNhapAction= (thongTinDangNhap) => {
                     type: "DANG_NHAP_ACTION", 
                     thongTinDangNhap: result.data.content
                 });
+                history.goBack(); 
           
             }
+
            
         } catch(errors) {
             console.log("errors", errors.response.data)

@@ -77,7 +77,9 @@ const renderLogin = () => {
                     </Select>
     </div>
     <div className="items-center flex-shrink-0 hidden lg:flex">
-      <button className="self-center px-8 py-3 rounded"> {t('Sign in')}</button>
+      <button className="self-center px-8 py-3 rounded" onClick = {() => {
+        history.push("/login")
+      }}> {t('Sign in')}</button>
       <button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-coolGray-900">Sign up</button>
     </div>
     <button className="p-4 lg:hidden">
