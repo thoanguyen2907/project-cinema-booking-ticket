@@ -8,10 +8,11 @@ import { USER_LOGIN } from "../../util/settings/config";
  const CheckoutTemplate = (props) => { //path, exact, Component
 
     const { Component, ...restProps } = props;
+    //check userlogin , allow to access to Checkout page, 
 
-    // if(!localStorage.getItem(USER_LOGIN)) {
-    //     return <Redirect to='/login' />
-    // }
+    if(!localStorage.getItem(USER_LOGIN)) {
+        return <Redirect to='/login' />
+    }
 
 
 
