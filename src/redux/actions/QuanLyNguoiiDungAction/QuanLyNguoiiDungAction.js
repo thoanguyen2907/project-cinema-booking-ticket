@@ -9,8 +9,6 @@ import { history } from '../../../App';
 export const  dangNhapAction= (thongTinDangNhap) => {
 
     return async (dispatch) => {
-  
-
         try {
             const result = await quanLyNguoiDungService.dangNhap(thongTinDangNhap) ;
             
@@ -37,7 +35,7 @@ export const  layThongTinNguoiDungAction= () => {
 
         try {
             const result = await quanLyNguoiDungService.layThongTinNguoiDung() ;
-
+            console.log(result);
             if(result.data.statusCode === 200) {
                 dispatch({
                     type: SET_THONG_TIN_NGUOI_DUNG, 

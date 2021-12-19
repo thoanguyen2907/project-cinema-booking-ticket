@@ -15,7 +15,7 @@ thongTinNguoiDung: {}
 export const QuanLyNguoiDungReducer = (state=stateDefault,action ) => {
     switch(action.type) {
 
-        case DANG_NHAP_ACTION : {
+         case DANG_NHAP_ACTION : {
             const {thongTinDangNhap} = action; 
             localStorage.setItem(USER_LOGIN, JSON.stringify(thongTinDangNhap));
             localStorage.setItem(TOKEN, thongTinDangNhap.accessToken); 
@@ -24,6 +24,7 @@ export const QuanLyNguoiDungReducer = (state=stateDefault,action ) => {
         }
         case SET_THONG_TIN_NGUOI_DUNG: {
             state.thongTinNguoiDung = action.thongTinNguoiDung; 
+            console.log( state.thongTinNguoiDung);
             return {...state}
         }
 

@@ -3,9 +3,7 @@ export class ThongTinLichChieu {
     danhSachGhe = [];
 
 
-
 }
-
 
 export class ThongTinPhim {
     maLichChieu = '';

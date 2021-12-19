@@ -15,6 +15,8 @@ export const  layChiTietPhongVeAction= (maLichChieu) => {
 
         try {
             const result = await quanLyDatVeService.layChiTietDatVe(maLichChieu) ;
+
+            console.log(result);
             
             if(result.data.statusCode === 200) {
                 dispatch({
@@ -67,11 +69,11 @@ export const datGheAction = (ghe,maLichChieu) => {
 
     return async (dispatch,getState) => {
 
-        //Đưa thông tin ghế lên reducer
-        await dispatch({
-            type: DAT_VE,
-            gheDuocChon: ghe
-        });
+            //Đưa thông tin ghế lên reducer
+            await dispatch({
+                type: DAT_VE,
+                gheDuocChon: ghe
+            });
 
         //Call api về backend 
         let danhSachGheDangDat = getState().QuanLyDatVeReducer.danhSachGheDangDat;
@@ -85,7 +87,6 @@ export const datGheAction = (ghe,maLichChieu) => {
 
         //Call api signalR
         connection.invoke('datGhe',taiKhoan,danhSachGheDangDat,maLichChieu);
-
 
 
 
