@@ -25,7 +25,7 @@ const Edit = (props) => {
   console.log('thongTinPhim', thongTinPhim);
   const [imgSrc, setImgSrc] = useState('');
   const dispatch = useDispatch();
-
+  const { Option } = Select;
   useEffect(() => {
     let { id } = props.match.params;
 
@@ -38,16 +38,16 @@ const Edit = (props) => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      maPhim: thongTinPhim.maPhim,
-      dangChieu: thongTinPhim.dangChieu,
-      sapChieu: thongTinPhim.sapChieu,
-      hot: thongTinPhim.hot,
-      danhGia: thongTinPhim.danhGia,
-      tenPhim: thongTinPhim.tenPhim,
-      trailer: thongTinPhim.trailer,
-      moTa: thongTinPhim.moTa,
+      maPhim: thongTinPhim?.maPhim,
+      dangChieu: thongTinPhim?.dangChieu,
+      sapChieu: thongTinPhim?.sapChieu,
+      hot: thongTinPhim?.hot,
+      danhGia: thongTinPhim?.danhGia,
+      tenPhim: thongTinPhim?.tenPhim,
+      trailer: thongTinPhim?.trailer,
+      moTa: thongTinPhim?.moTa,
       maNhom: GROUPID,
-      ngayKhoiChieu: thongTinPhim.ngayKhoiChieu,
+      ngayKhoiChieu: thongTinPhim?.ngayKhoiChieu,
       hinhAnh: null
     },
 

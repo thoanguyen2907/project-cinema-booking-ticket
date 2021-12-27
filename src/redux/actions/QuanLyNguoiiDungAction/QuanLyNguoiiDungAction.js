@@ -9,8 +9,6 @@ import { history } from '../../../App';
 export const  dangNhapAction= (thongTinDangNhap) => {
 
     return async (dispatch) => {
-  
-
         try {
             const result = await quanLyNguoiDungService.dangNhap(thongTinDangNhap) ;
             
@@ -19,7 +17,25 @@ export const  dangNhapAction= (thongTinDangNhap) => {
                     type: "DANG_NHAP_ACTION", 
                     thongTinDangNhap: result.data.content
                 });
-                history.goBack(); 
+                history.push('/'); 
+          
+            }
+
+           
+        } catch(errors) {
+            console.log("errors", errors.response.data)
+        }
+    }
+}
+export const  dangKyAction= (thongTinDangKy) => {
+
+    return async (dispatch) => {
+        try {
+            const result = await quanLyNguoiDungService.dangKy(thongTinDangKy)
+            console.log(result)
+            if(result.data.statusCode === 200) {
+             
+                history.push('/login'); 
           
             }
 
@@ -30,6 +46,7 @@ export const  dangNhapAction= (thongTinDangNhap) => {
     }
 }
 
+
 export const  layThongTinNguoiDungAction= () => {
 
     return async (dispatch) => {
@@ -37,7 +54,7 @@ export const  layThongTinNguoiDungAction= () => {
 
         try {
             const result = await quanLyNguoiDungService.layThongTinNguoiDung() ;
-
+            console.log(result);
             if(result.data.statusCode === 200) {
                 dispatch({
                     type: SET_THONG_TIN_NGUOI_DUNG, 

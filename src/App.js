@@ -32,12 +32,12 @@ export default function App() {
     <HomeTemplate path = "/home" exact Component = {Home}/> 
     <HomeTemplate path = "/" exact Component = {Home}/> 
     <HomeTemplate path = "/contact" exact Component = {Contact}/> 
-    <HomeTemplate path = "/register" exact Component = {Register}/> 
     <HomeTemplate path = "/news" exact Component = {News}/> 
     <HomeTemplate path = "/detail/:id" exact Component = {Detail}/> 
     <CheckoutTemplate path="/checkout/:id" exact Component={Checkout} />
     <UserTemplate path = "/login" exact Component = {Login}/> 
-
+    <UserTemplate path = "/register" exact Component = {Register}/> 
+    
     <AdminTemplate path="/admin" exact Component={Dashboard} />
         <AdminTemplate path="/admin/films" exact Component={Films} />
         <AdminTemplate path="/admin/films/addnew" exact Component={AddNew} />

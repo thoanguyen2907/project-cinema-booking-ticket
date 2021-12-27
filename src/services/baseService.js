@@ -1,4 +1,4 @@
-import Axios from "axios"
+import Axios from "axios"; 
 import {DOMAIN,TOKEN} from '../util/settings/config'
 
 export class baseService {

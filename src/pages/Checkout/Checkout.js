@@ -20,12 +20,14 @@ import { NavLink } from 'react-router-dom';
 function Checkout(props) {
      const {chiTietPhongVe, danhSachGheDangDat, danhSachGheKhachDat} =  useSelector(state => state.QuanLyDatVeReducer);
      console.log({chiTietPhongVe});
+     // kiểm tra ng dùng đăng nhập
      const {userLogin} = useSelector(state => state.QuanLyNguoiDungReducer); 
      
     const dispatch = useDispatch();
     
     useEffect(() => {
         const maLichChieu = props.match.params.id; 
+        console.log(maLichChieu);
        dispatch(layChiTietPhongVeAction(maLichChieu));
 
     //Có 1 client nào thực hiện việc đặt vé thành công mình sẽ load lại danh sách phòng vé của lịch chiếu đó
@@ -38,7 +40,7 @@ function Checkout(props) {
 
      //Load danh sách ghế đang đặt từ server về (lắng nghe tín hiệu từ server trả về)
      connection.on("loadDanhSachGheDaDat", (dsGheKhachDat) => {
-        console.log('danhSachGheKhachDat',dsGheKhachDat);
+        
         //Bước 1: Loại mình ra khỏi danh sách 
         dsGheKhachDat = dsGheKhachDat.filter(item => item.taiKhoan !== userLogin.taiKhoan);
         //Bước 2 gộp danh sách ghế khách đặt ở tất cả user thành 1 mảng chung 
@@ -56,8 +58,7 @@ function Checkout(props) {
         dispatch({
             type:'DAT_GHE',
             arrGheKhachDat
-        })
-        
+        })      
      })
 
      //Cài đặt sự kiện khi reload trang
@@ -227,6 +228,7 @@ export default function CheckoutTab (props) {
     const {tabActive} = useSelector(state=>state.QuanLyDatVeReducer);
     const {userLogin} = useSelector(state=>state.QuanLyNguoiDungReducer)
     const dispatch = useDispatch();
+    //unmount trả lại tab ative
     useEffect(()=>{
         return ()=> {
             dispatch({
@@ -261,7 +263,7 @@ return <div className="p-5">
             <Checkout {...props} />
         </TabPane>
         <TabPane tab="02 KẾT QUẢ ĐẶT VÉ" key="2">
-            <KetQuaDatVe {...props} />
+            <KetQuaDatVe {...props} /> 
         </TabPane>
         <TabPane tab={<div className="text-center" style={{display:'flex', justifyContent:'center',alignItems:'center'}}><NavLink to="/"><HomeOutlined style={{marginLeft:10,fontSize:25}} /></NavLink></div>} key="3">
              
@@ -279,10 +281,6 @@ function KetQuaDatVe(props) {
     const dispatch = useDispatch();
     
     const {thongTinNguoiDung} = useSelector(state => state.QuanLyNguoiDungReducer); 
-
-    const {userLogin} = useSelector(state => state.QuanLyNguoiDungReducer); 
-  
-
 
     useEffect(() => {
      dispatch(layThongTinNguoiDungAction())

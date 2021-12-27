@@ -41,11 +41,7 @@ const AdminTemplate = (props) => { //path, exact, Component
         return <Redirect to='/' />
     }
 
-    if (userLogin.maLoaiNguoiDung !== 'QuanTri') {
-        alert('Bạn không có quyền truy cập vào trang này !')
-        return <Redirect to='/' />
-
-    }
+  
 
     const operations = <Fragment>
         {!_.isEmpty(userLogin) ? <Fragment> <button onClick={() => {
@@ -73,13 +69,10 @@ const AdminTemplate = (props) => { //path, exact, Component
                         </Menu.Item>
                         <SubMenu key="sub1" icon={<FileOutlined />} title="Films">
                             <Menu.Item key="10" icon={<FileOutlined />}>
-                                <NavLink to="/admin/films">Films</NavLink>
-                               
+                                <NavLink to="/admin/films">Films</NavLink>                         
                             </Menu.Item>
                             <Menu.Item key="11" icon={<FileOutlined />}>
-                            <NavLink to="/admin/films/addnew">Add new</NavLink>
-
-                               
+                            <NavLink to="/admin/films/addnew">Add new</NavLink>                
                             </Menu.Item>
                         </SubMenu>
                         <Menu.Item key="3" icon={<DesktopOutlined />}>

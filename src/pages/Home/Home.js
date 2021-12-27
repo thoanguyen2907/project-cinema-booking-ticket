@@ -53,7 +53,7 @@ export default function Home () {
         
            <HomeMenu heThongRapChieu = {heThongRapChieu}/>
            </div>
-            <Footer/>
+        
         </div>
 
     )

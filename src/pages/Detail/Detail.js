@@ -86,11 +86,13 @@ export default function Detail(props) {
                             </div>
                             <div className="thong-tin-lich-chieu grid grid-cols-4">
                                 {cumRap.lichChieuPhim?.slice(0,12).map((lichChieu, index) => {
-                                    return  <NavLink to ="/" key={index} className="col-span-1 text-green-800 font-bold">
+                                    console.log(lichChieu.maLichChieu);
+                                    return  <NavLink to ={`/checkout/${lichChieu.maLichChieu}`}  key={index} className="col-span-1 text-green-800 font-bold">
                                         {moment(lichChieu.ngayChieuGioChieu).format('hh:mm: A')}
+                                       
                                     </NavLink>
                                 })}
-                                
+                                  
                             </div>
                              
                         </div>
