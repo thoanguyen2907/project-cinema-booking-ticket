@@ -11,6 +11,7 @@ useEffect(() => {
     window.scrollTo(0, 0);
 
 })
+
 return <Route {...restProps} render = {(propsRoute) => {
     return <>
     <Header {...propsRoute}></Header>

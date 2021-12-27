@@ -127,7 +127,7 @@ export default function Films() {
             <Button className="mb-5" onClick={() => {
                 history.push('/admin/films/addnew');
             }}>Thêm phim</Button>
-            {/* <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} /> */}
+
             <Search
                 className="mb-5"
                 placeholder="input search text"

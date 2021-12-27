@@ -38,7 +38,7 @@ export const  datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
         console.log({thongTinDatVe});
 
         try {
-            await dispatch({
+              dispatch({
                 type: DISPLAY_LOADING
             })
             const result = await quanLyDatVeService.datVe(thongTinDatVe) ;
@@ -47,14 +47,14 @@ export const  datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
                 console.log(result.data.content)
              
             }
-            await dispatch(layChiTietPhongVeAction(thongTinDatVe.maLichChieu));
-            await dispatch({
+              dispatch(layChiTietPhongVeAction(thongTinDatVe.maLichChieu));
+              dispatch({
                 type: DAT_VE_HOAN_TAT
             })
-            await dispatch({
+              dispatch({
                 type: HIDE_LOADING
             });
-            await dispatch({
+              dispatch({
                 type:CHUYEN_TAB
             });
         
@@ -69,8 +69,8 @@ export const datGheAction = (ghe,maLichChieu) => {
 
     return async (dispatch,getState) => {
 
-            //Đưa thông tin ghế lên reducer
-            await dispatch({
+            //  thông tin ghế lên reducer
+              dispatch({
                 type: DAT_VE,
                 gheDuocChon: ghe
             });
@@ -85,9 +85,17 @@ export const datGheAction = (ghe,maLichChieu) => {
         //Biến mảng thành chuỗi
         danhSachGheDangDat = JSON.stringify(danhSachGheDangDat);
 
-        //Call api signalR
+       
+        try {
+             //Call api signalR
+             console.log({
+                taiKhoan,danhSachGheDangDat,maLichChieu
+             })
         connection.invoke('datGhe',taiKhoan,danhSachGheDangDat,maLichChieu);
 
+        } catch (error) {
+            console.log(error)
+        }
 
 
     }

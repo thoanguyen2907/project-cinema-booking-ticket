@@ -53,11 +53,6 @@ export default function Login() {
                   <div className="text-sm font-bold text-gray-700 tracking-wide">
                     Password
                   </div>
-                  <div>
-                    <p className="text-xs font-display font-semibold text-indigo-600 hover:text-indigo-800 cursor-pointer">
-                      Forgot Password?
-                    </p>
-                  </div>
                 </div>
                 <input name="matKhau"  onChange={formik.handleChange} className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="password" placeholder="Enter your password" />
               </div>
@@ -65,13 +60,11 @@ export default function Login() {
                 <button className="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
                               font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
                               shadow-lg">
-                  Log In
+                  Login
                 </button>
               </div>
             </div>
-            <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
-              Don't have an account ? <NavLink to = "/register" className="cursor-pointer text-indigo-600 hover:text-indigo-800">Sign up</NavLink>
-            </div>
+           
           </div>
         </div>
       </form>

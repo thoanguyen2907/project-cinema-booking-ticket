@@ -17,7 +17,7 @@ export const  dangNhapAction= (thongTinDangNhap) => {
                     type: "DANG_NHAP_ACTION", 
                     thongTinDangNhap: result.data.content
                 });
-                history.goBack(); 
+                history.push('/'); 
           
             }
 
@@ -27,6 +27,25 @@ export const  dangNhapAction= (thongTinDangNhap) => {
         }
     }
 }
+export const  dangKyAction= (thongTinDangKy) => {
+
+    return async (dispatch) => {
+        try {
+            const result = await quanLyNguoiDungService.dangKy(thongTinDangKy)
+            console.log(result)
+            if(result.data.statusCode === 200) {
+             
+                history.push('/login'); 
+          
+            }
+
+           
+        } catch(errors) {
+            console.log("errors", errors.response.data)
+        }
+    }
+}
+
 
 export const  layThongTinNguoiDungAction= () => {
 
