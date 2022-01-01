@@ -77,7 +77,8 @@ export const datGheAction = (ghe,maLichChieu) => {
 
         //Call api về backend 
         let danhSachGheDangDat = getState().QuanLyDatVeReducer.danhSachGheDangDat;
-        let taiKhoan = getState().QuanLyNguoiDungReducer.userLogin.taiKhoan;
+        
+        let taiKhoan = JSON.parse(localStorage.getItem('USER_LOGIN')).taiKhoan;
 
         console.log('danhSachGheDangDat',danhSachGheDangDat);
         console.log('taiKhoan',taiKhoan);
