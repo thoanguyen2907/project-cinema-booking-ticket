@@ -6,7 +6,7 @@
 + Account: thoa 
 + Password: 123123
 
-3. ou can login with admin role: 
+3. You can login with admin role: 
 + Account: 123@admin10
 + Password: 123456w
 
