@@ -1,3 +1,18 @@
+
+1. Live demo: http://cinema-booking-ticket-clone-tix-project.surge.sh/
+
+2. You can login with user role: 
+
++ Account: thoa 
++ Password: 123123
+
+3. ou can login with admin role: 
++ Account: 123@admin10
++ Password: 123456w
+
+This is the project the clone movie website: tix.vn
+The projecct I mainly worked on the front-end field and applied react, redux-thunk, rest api, HOC model for resuable components, javascript, tailwindcss. 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
