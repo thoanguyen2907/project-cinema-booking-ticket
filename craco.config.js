@@ -1,4 +1,5 @@
 module.exports = {
+  content: ["./src/**/*.{html,js}"],
     style: {
       postcss: {
         plugins: [
@@ -7,4 +8,5 @@ module.exports = {
         ],
       },
     },
+    purge: false
   }

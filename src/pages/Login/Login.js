@@ -45,7 +45,7 @@ export default function Login() {
           <div className="mt-12">
             <div>
               <div>
-                <div className="text-sm font-bold text-gray-700 tracking-wide">Tài Khoản</div>
+                <div className="text-sm font-bold text-gray-700 tracking-wide">Account</div>
                 <input name="taiKhoan" onChange={formik.handleChange} className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"  placeholder="mike@gmail.com" />
               </div>
               <div className="mt-8">
