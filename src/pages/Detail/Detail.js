@@ -17,12 +17,10 @@ export default function Detail(props) {
     const filmDetail = useSelector(state => state.QuanLyPhimReducer.filmDetail);
     const dispatch = useDispatch()
     useEffect(() => {
-        let {id} = props.match.params;
-        console.log("id", id);
+        let {id} = props.match.params;    
         dispatch(layDanhChiTietPhimAction(id))
     }, []);
 
-    console.log({filmDetail});
 
     return (
         <div style={{backgroundImage: `url(${filmDetail.hinhAnh})`, backgroundSize: '100%', backgroundPosition: 'center', minHeight: '100vh' }}>
@@ -38,8 +36,8 @@ export default function Detail(props) {
                         <div className="grid grid-cols-3">
                             <img className="col-span-1" src={filmDetail.hinhAnh} style={{ width: '100%', height: 300 }} alt="123" />
                             <div className="col-span-2 ml-5" style={{ marginTop: '18%' }}>
-                                <p className="text-sm">Ngày chiếu: {moment(filmDetail.ngayKhoiChieu).format('DD.MM.YYYY')}</p>
-                                <p className="text-4xl leading-3">{filmDetail.tenPhim}</p>
+                                <p className="text-sm">Date: {moment(filmDetail.ngayKhoiChieu).format('DD.MM.YYYY')}</p>
+                                <p className="text-2xl leading-3">{filmDetail.tenPhim}</p>
                                 <p>{filmDetail.moTa}</p>
                             </div>
                         </div>
@@ -47,7 +45,7 @@ export default function Detail(props) {
                     </div>
 
                     <div className="col-span-4">
-                        <h1 style={{ marginLeft: '15%', color: 'yellow', fontWeight: 'bold', fontSize: 15 }}>Đánh giá</h1>
+                        <h1 style={{ marginLeft: '15%', color: 'yellow', fontWeight: 'bold', fontSize: 15 }}>Rating</h1>
                         <h1 style={{ marginLeft: '5%' }} className="text-green-400 text-2xl"><Rate allowHalf value={filmDetail.danhGia / 2} style={{ color: '#78ed78', fontSize: 30 }} /></h1>
                         <div className={`c100 p${filmDetail.danhGia * 10} big`}>
                             <span className="text-white">
@@ -67,7 +65,7 @@ export default function Detail(props) {
                 </div>
                 <div className="mt-10 ml-72 container bg-white px-5 py-5 w-2/3">
                 <Tabs defaultActiveKey="1" centered>
-    <TabPane tab="Lịch chiếu" key="1">
+    <TabPane tab="Calendar" key="1">
     <div className="mt-20 container bg-white mx-auto">
         <Tabs tabPosition={'left'}>
             {filmDetail.heThongRapChieu?.map((htr, index) => {
@@ -86,7 +84,6 @@ export default function Detail(props) {
                             </div>
                             <div className="thong-tin-lich-chieu grid grid-cols-4">
                                 {cumRap.lichChieuPhim?.slice(0,12).map((lichChieu, index) => {
-                                    console.log(lichChieu.maLichChieu);
                                     return  <NavLink to ={`/checkout/${lichChieu.maLichChieu}`}  key={index} className="col-span-1 text-green-800 font-bold">
                                         {moment(lichChieu.ngayChieuGioChieu).format('hh:mm: A')}
                                        
@@ -103,11 +100,11 @@ export default function Detail(props) {
         </Tabs>
         </div>
     </TabPane>
-    <TabPane tab="Thông tin" key="2">
-    Thông tin
+    <TabPane tab="Information" key="2">
+   Information
     </TabPane>
-    <TabPane tab="Đánh giá" key="3">
-    Đánh giá
+    <TabPane tab=" Rating and Feedback" key="3">
+    Rating and Feedback
     </TabPane>
   </Tabs>
   </div>

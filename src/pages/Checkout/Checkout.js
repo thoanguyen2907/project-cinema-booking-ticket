@@ -19,7 +19,7 @@ import { NavLink } from 'react-router-dom';
 
 function Checkout(props) {
      const {chiTietPhongVe, danhSachGheDangDat, danhSachGheKhachDat} =  useSelector(state => state.QuanLyDatVeReducer);
-     console.log({chiTietPhongVe});
+
      // kiểm tra ng dùng đăng nhập
      const {userLogin} = useSelector(state => state.QuanLyNguoiDungReducer); 
      
@@ -27,7 +27,7 @@ function Checkout(props) {
     
     useEffect(() => {
         const maLichChieu = props.match.params.id; 
-        console.log(maLichChieu);
+        
        dispatch(layChiTietPhongVeAction(maLichChieu));
 
     //Có 1 client nào thực hiện việc đặt vé thành công mình sẽ load lại danh sách phòng vé của lịch chiếu đó
@@ -74,12 +74,8 @@ function Checkout(props) {
 
     const clearGhe = function(event) {
         
-        connection.invoke('huyDat',userLogin.taiKhoan,props.match.params.id);
-
-            
+        connection.invoke('huyDat',userLogin.taiKhoan,props.match.params.id);  
     }
-    
-
     const {thongTinPhim, danhSachGhe} = chiTietPhongVe; 
 
     const renderSeats = () => {
@@ -131,14 +127,13 @@ function Checkout(props) {
                     <div className="bg-black " style={{ width: '80%', height: 15 }}>
                     </div>
                     <div className={`${style['trapezoid']} text-center`}>
-                        <h3 className="mt-3 text-black">Màn hình</h3>
+                        <h3 className="mt-3 text-black">Monitor</h3>
                     </div>
                     <div>
                         {renderSeats()}
                     </div>
                 </div>
               
-
                 <div className="mt-5 flex justify-center">
                     <table className=" divide-y divide-gray-200 w-2/3">
                         <thead className="bg-gray-50 p-5">
@@ -167,12 +162,12 @@ function Checkout(props) {
                 <h3 className="text-green-400 text-center text-4xl"> 0</h3>
                 <hr />
                 <h3 className="text-xl mt-2">{thongTinPhim?.tenPhim}</h3>
-                <p>Địa điểm: {thongTinPhim?.tenCumRap}</p>
-                <p>Ngày chiếu: {thongTinPhim?.ngayChieu}</p>
+                <p>Location: {thongTinPhim?.tenCumRap}</p>
+                <p>Date: {thongTinPhim?.ngayChieu}</p>
                 <hr />
                 <div className="flex flex-row my-5">
                     <div className="w-4/5">
-                        <span className="text-red-400 text-lg">Ghế</span>
+                        <span className="text-red-400 text-lg">Seat</span>
                     {_.sortBy(danhSachGheDangDat, ['stt']).map((gheDD, index) => {
                         return <span key = {index} className="text-green-500 text-xl mr-2">{gheDD.stt}</span>
                     })}
@@ -207,7 +202,7 @@ function Checkout(props) {
                             dispatch(datVeAction(thongTinDatVe))
                         }}
                     >
-                        ĐẶT VÉ
+                       Book Ticket
                     </div>
                 </div>
             </div>
@@ -246,7 +241,7 @@ export default function CheckoutTab (props) {
             localStorage.removeItem(TOKEN);
             history.push('/home');
             window.location.reload();
-        }} className="text-blue-800">Đăng xuất</button> </Fragment>: ''} 
+        }} className="text-blue-800">Log out</button> </Fragment>: ''} 
 
 
     </Fragment>
@@ -259,10 +254,10 @@ return <div className="p-5">
             number:key.toString()
         })
     }}>
-        <TabPane tab="01 CHỌN GHẾ & THANH TOÁN" key="1">
+        <TabPane tab="01 Choose A Seat & Checkout" key="1">
             <Checkout {...props} />
         </TabPane>
-        <TabPane tab="02 KẾT QUẢ ĐẶT VÉ" key="2">
+        <TabPane tab="02 Booking Ticket Result" key="2">
             <KetQuaDatVe {...props} /> 
         </TabPane>
         <TabPane tab={<div className="text-center" style={{display:'flex', justifyContent:'center',alignItems:'center'}}><NavLink to="/"><HomeOutlined style={{marginLeft:10,fontSize:25}} /></NavLink></div>} key="3">
@@ -297,12 +292,12 @@ function KetQuaDatVe(props) {
                 <img alt="team" className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src={ticket?.hinhAnh} />
                 <div className="flex-grow">
                     <h2 className="text-gray-900 title-font font-medium">{ticket?.tenPhim}</h2>
-                    <p className="text-gray-500"><span className="font-bold">Giờ chiếu:</span> {moment(ticket.ngayDat).format('hh:mm A')} - <span className="font-bold">Ngày chiếu:</span>  {moment(ticket.ngayDat).format('DD-MM-YYYY')} .</p>
+                    <p className="text-gray-500"><span className="font-bold">Show Time:</span> {moment(ticket.ngayDat).format('hh:mm A')} - <span className="font-bold">Date:</span>  {moment(ticket.ngayDat).format('DD-MM-YYYY')} .</p>
                     <p> 
-                        Tên rạp: {seats.tenHeThongRap}
+                        Cinema System: {seats.tenHeThongRap}
                     </p>
                     <p> 
-                        Tên rạp: {seats.tenCumRap} - Ghế {ticket.danhSachGhe.map((ghe, index) => {
+                        Cinema Branch: {seats.tenCumRap} - Seat {ticket.danhSachGhe.map((ghe, index) => {
                             return <span key = {index} className = "mx-1">{ghe.tenGhe}</span>
                         })}
                     </p>
@@ -317,8 +312,8 @@ return <div className="p-5">
     <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
             <div className="flex flex-col text-center w-full mb-20">
-                <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4  text-purple-600 ">Lịch sử đặt vé khách hàng</h1>
-                <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Hãy xem thông tin địa và thời gian để xem phim vui vẻ bạn nhé !</p>
+                <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4  text-purple-600 ">Booking Ticket History</h1>
+                <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Please check your time and movie information. Have a great time! Thanks for choosing us !!</p>
             </div>
             <div className="flex flex-wrap -m-2">
                 {renderTicketItem()}

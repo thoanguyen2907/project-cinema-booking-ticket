@@ -30,7 +30,7 @@ export default function Film_Flip(props) {
                 </div>
             </div>
            
-            <NavLink className="w-full bg-orange-300 text-center cursor-pointer py-2 bg-indigo-300 my-2 text-success-50 font-bold" to={`/detail/${item.maPhim}`}>ĐẶT VÉ</NavLink>
+            <NavLink className="w-full bg-orange-300 text-center cursor-pointer py-2 bg-indigo-300 my-2 text-success-50 font-bold" to={`/detail/${item.maPhim}`}>Book Ticket</NavLink>
            
             
         </div>
