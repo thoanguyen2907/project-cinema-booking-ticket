@@ -13,6 +13,10 @@
 This is the project the clone movie website: tix.vn
 The projecct I mainly worked on the front-end field and applied react, redux-thunk, rest api, HOC model for resuable components, javascript, tailwindcss. 
 
+![](https://media.giphy.com/media/yUTPmVO1RHgE8vsbMB/giphy.gif)
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
